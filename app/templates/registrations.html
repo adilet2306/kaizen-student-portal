@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Registrations · Kaizen Student Portal{% endblock %}
+{% block content %}
+<div class="two-column">
+<section class="panel">
+    <h2>Register student</h2>
+    <form method="post">
+        <label>Student
+            <select name="student_id" required>
+                <option value="">Select student</option>
+                {% for student in students %}
+                <option value="{{ student.id }}">{{ student.full_name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Course
+            <select name="course_id" required>
+                <option value="">Select course</option>
+                {% for course in courses %}
+                <option value="{{ course.id }}">
+                    {{ course.code }} — {{ course.name }} ({{ course.seats_remaining }} seats)
+                </option>
+                {% endfor %}
+            </select>
+        </label>
+        <button type="submit">Create registration</button>
+    </form>
+</section>
+
+<section class="panel">
+    <h2>Registrations</h2>
+    {% if registrations %}
+    <table>
+        <thead><tr><th>Student</th><th>Course</th><th>Registered</th></tr></thead>
+        <tbody>
+        {% for registration in registrations %}
+        <tr>
+            <td>{{ registration.student.full_name }}</td>
+            <td>{{ registration.course.code }}</td>
+            <td>{{ registration.registered_at.strftime("%Y-%m-%d %H:%M") }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No registrations yet.</p>
+    {% endif %}
+</section>
+</div>
+{% endblock %}

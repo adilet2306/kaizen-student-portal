@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Courses · Kaizen Student Portal{% endblock %}
+{% block content %}
+<section class="panel">
+    <h2>Available courses</h2>
+    {% if courses %}
+    <table>
+        <thead>
+            <tr><th>Code</th><th>Name</th><th>Description</th><th>Seats</th></tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+        <tr>
+            <td><strong>{{ course.code }}</strong></td>
+            <td>{{ course.name }}</td>
+            <td>{{ course.description }}</td>
+            <td>{{ course.seats_remaining }} / {{ course.capacity }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Run <code>flask --app wsgi seed-db</code> to load courses.</p>
+    {% endif %}
+</section>
+{% endblock %}

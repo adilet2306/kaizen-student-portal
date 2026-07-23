@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Students · Kaizen Student Portal{% endblock %}
+{% block content %}
+<div class="two-column">
+<section class="panel">
+    <h2>Add student</h2>
+    <form method="post">
+        <label>First name
+            <input name="first_name" required maxlength="80">
+        </label>
+        <label>Last name
+            <input name="last_name" required maxlength="80">
+        </label>
+        <label>Email
+            <input name="email" type="email" required maxlength="255">
+        </label>
+        <button type="submit">Create student</button>
+    </form>
+</section>
+
+<section class="panel">
+    <h2>Students</h2>
+    {% if students %}
+    <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Created</th></tr></thead>
+        <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.full_name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No students yet.</p>
+    {% endif %}
+</section>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Kaizen Student Portal{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<header>
+    <div class="container header-row">
+        <div>
+            <h1>Kaizen Student Portal</h1>
+            <p>Developer-provided application for a DevOps deployment project</p>
+        </div>
+        <nav>
+            <a href="{{ url_for('main.index') }}">Dashboard</a>
+            <a href="{{ url_for('main.students') }}">Students</a>
+            <a href="{{ url_for('main.courses') }}">Courses</a>
+            <a href="{{ url_for('main.registrations') }}">Registrations</a>
+            <a href="{{ url_for('main.uploads') }}">Résumés</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="container">
+    <small>
+        Health: <a href="/health">/health</a> ·
+        Readiness: <a href="/ready">/ready</a> ·
+        Version: <a href="/version">/version</a> ·
+        Instance: <a href="/instance">/instance</a>
+    </small>
+</footer>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · Kaizen Student Portal{% endblock %}
+{% block content %}
+<section class="hero">
+    <h2>Deployment-ready application</h2>
+    <p>
+        This application stores relational data in a database and stores résumé
+        files using the configured storage backend.
+    </p>
+</section>
+
+<section class="cards">
+    <article class="card">
+        <span class="metric">{{ student_count }}</span>
+        <span>Students</span>
+    </article>
+    <article class="card">
+        <span class="metric">{{ course_count }}</span>
+        <span>Courses</span>
+    </article>
+    <article class="card">
+        <span class="metric">{{ registration_count }}</span>
+        <span>Registrations</span>
+    </article>
+    <article class="card">
+        <span class="metric small">{{ storage_backend }}</span>
+        <span>Storage backend</span>
+    </article>
+</section>
+
+<section class="panel">
+    <h3>DevOps verification endpoints</h3>
+    <pre>curl http://APPLICATION-ENDPOINT/health
+curl http://APPLICATION-ENDPOINT/ready
+curl http://APPLICATION-ENDPOINT/version
+curl http://APPLICATION-ENDPOINT/instance</pre>
+</section>
+{% endblock %}

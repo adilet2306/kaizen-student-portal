@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Résumés · Kaizen Student Portal{% endblock %}
+{% block content %}
+<div class="two-column">
+<section class="panel">
+    <h2>Upload résumé</h2>
+    <p>Current backend: <strong>{{ storage_backend }}</strong></p>
+    <form method="post" enctype="multipart/form-data">
+        <label>Student
+            <select name="student_id" required>
+                <option value="">Select student</option>
+                {% for student in students %}
+                <option value="{{ student.id }}">{{ student.full_name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Résumé
+            <input name="resume" type="file" accept=".pdf,.doc,.docx,.txt" required>
+        </label>
+        <button type="submit">Upload résumé</button>
+    </form>
+</section>
+
+<section class="panel">
+    <h2>Uploaded résumés</h2>
+    {% if uploads %}
+    <table>
+        <thead><tr><th>Student</th><th>File</th><th>Size</th><th></th></tr></thead>
+        <tbody>
+        {% for upload in uploads %}
+        <tr>
+            <td>{{ upload.student.full_name }}</td>
+            <td>{{ upload.original_filename }}</td>
+            <td>{{ (upload.size_bytes / 1024)|round(1) }} KB</td>
+            <td><a href="{{ url_for('main.download_upload', upload_id=upload.id) }}">Download</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No uploaded résumés yet.</p>
+    {% endif %}
+</section>
+</div>
+{% endblock %}
