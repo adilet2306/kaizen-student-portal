@@ -97,7 +97,7 @@ class ResumeUpload(db.Model):
         index=True,
     )
     original_filename = db.Column(db.String(255), nullable=False)
-    storage_key = db.Column(db.String(1024), nullable=False, unique=True)
+    storage_key = db.Column(db.String(512), nullable=False, unique=True)
     content_type = db.Column(db.String(255), nullable=False, default="application/octet-stream")
     size_bytes = db.Column(db.Integer, nullable=False, default=0)
     uploaded_at = db.Column(

@@ -70,7 +70,7 @@ def upgrade():
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("student_id", sa.Integer(), nullable=False),
         sa.Column("original_filename", sa.String(length=255), nullable=False),
-        sa.Column("storage_key", sa.String(length=1024), nullable=False),
+        sa.Column("storage_key", sa.String(length=512), nullable=False),
         sa.Column("content_type", sa.String(length=255), nullable=False),
         sa.Column("size_bytes", sa.Integer(), nullable=False),
         sa.Column("uploaded_at", sa.DateTime(timezone=True), nullable=False),
