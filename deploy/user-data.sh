@@ -31,7 +31,36 @@ apt-get install -y \
   python3-pip \
   git \
   curl \
-  awscli
+  unzip
+
+ARCH="$(uname -m)"
+
+case "${ARCH}" in
+  x86_64)
+    AWSCLI_ARCH="x86_64"
+    ;;
+  aarch64|arm64)
+    AWSCLI_ARCH="aarch64"
+    ;;
+  *)
+    echo "Unsupported CPU architecture: ${ARCH}"
+    exit 1
+    ;;
+esac
+
+rm -rf /tmp/aws /tmp/awscliv2.zip
+
+curl --fail --silent --show-error --location \
+  "https://awscli.amazonaws.com/awscli-exe-linux-${AWSCLI_ARCH}.zip" \
+  --output /tmp/awscliv2.zip
+
+unzip -q /tmp/awscliv2.zip -d /tmp
+
+/tmp/aws/install --update
+
+aws --version
+
+rm -rf /tmp/aws /tmp/awscliv2.zip
 
 if ! id "${APP_USER}" >/dev/null 2>&1; then
   useradd \
